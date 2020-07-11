@@ -31,7 +31,7 @@ class Stack:
             new_node = Node(value)
             new_node.next = self.head
             self.head = new_node
-        self.size = self.size + 1
+        self.size += 1
 
     def pop(self):
         if self.head is None:
@@ -42,6 +42,6 @@ class Stack:
             pop_node = self.head
             self.head = self.head.next
             pop_node.next = None
-            self.size = self.size - 1
+            self.size -= 1
 
             return pop_node.value

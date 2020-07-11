@@ -15,21 +15,27 @@ Stretch: What if you could only use instances of your Stack class to implement t
 """
 
 
+from singly_linked_list import LinkedList
+
+
 class Queue:
     def __init__(self):
         self.size = 0
-        self.items = []
+        self.list = LinkedList()
 
     def __len__(self):
         return self.size
 
     def enqueue(self, value):
-        # Add a value to the queue using a list
-        self.items.append(value)
+        # Add value to queue using linked list
+        self.list.add_to_tail(value)
         self.size += 1
 
     def dequeue(self):
-        # Remove a value from the queue using a list
-        if self.items != []:
+        if self.size == 0:
+            # Handle the empty case
+            return None
+        else:
+            # Remove the item from the queue using linked list
             self.size -= 1
-            return self.items.pop(0)
+            return self.list.remove_head()
