@@ -157,24 +157,3 @@ class AVLTree:
             self.node.right.insert(key)
 
         self.rebalance()
-
-    """
-        print(self.node, key)
-        if self.node is None:
-            self.node = Node(key)
-        else:
-            if self.node.key <= key:
-                if self.node.right is None:
-                    self.node.right = Node(key)
-                else:
-                    self.node = self.node.right
-                    self.node.insert(key)
-            else:
-                if self.node.left is None:
-                    self.node.left = Node(key)
-                else:
-                    self.node = self.node.left
-                    self.node.insert(key)
-
-        self.rebalance()
-    """
