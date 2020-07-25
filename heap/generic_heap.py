@@ -1,22 +1,67 @@
+import math
+
+
 class Heap:
-    def __init__(self, comparator):
+    def __init__(self, comparator=lambda x, y: x > y):
         self.storage = []
         self.comparator = comparator
 
     def insert(self, value):
-        pass
+        self.storage.append(value)
+        self._bubble_up(len(self.storage)-1)
 
     def delete(self):
-        pass
+        deleted = self.storage[0]
+        self.storage[0] = self.storage[len(self.storage) - 1]
+        self.storage.pop()
+        self._sift_down(0)
+        return deleted
 
     def get_priority(self):
-        pass
+        return(self.storage[0])
 
     def get_size(self):
-        pass
+        return(len(self.storage))
 
     def _bubble_up(self, index):
-        pass
+        if index == 0:
+            return
+        child = self.storage[index]
+        parent_index = int(math.floor(index-1)/2)
+        parent = self.storage[parent_index]
+        if not self.comparator(parent, child):
+            # if parent < child:
+            self.storage[parent_index] = child
+            self.storage[index] = parent
+            self._bubble_up(parent_index)
 
     def _sift_down(self, index):
-        pass
+        # No children
+        if len(self.storage) < ((2 * index) + 2):
+            return
+        # Left child only
+        elif len(self.storage) < ((2 * index) + 3):
+            parent = self.storage[index]
+            lchild = self.storage[(2 * index) + 1]
+            if not self.comparator(parent, lchild):
+                self.storage[index] = lchild
+                self.storage[(2 * index) + 1] = parent
+                self._sift_down((2 * index) + 1)
+        # Both children
+        else:
+            parent = self.storage[index]
+            lchild = self.storage[(2 * index) + 1]
+            rchild = self.storage[(2 * index) + 2]
+            if not self.comparator(lchild, rchild):
+                achild = rchild
+            else:
+                achild = lchild
+            if not self.comparator(parent, achild):
+                if not self.comparator(rchild, lchild):
+                    self.storage[index] = lchild
+                    self.storage[(2 * index) + 1] = parent
+                    self._sift_down((2 * index) + 1)
+                else:
+                    self.storage[index] = rchild
+                    self.storage[(2 * index) + 2] = parent
+                    self._sift_down((2 * index) + 2)
